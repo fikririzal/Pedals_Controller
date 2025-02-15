@@ -1,5 +1,5 @@
 #settings
-.settings/
+.settings
 
 #metadata
 .metadata/
@@ -8,9 +8,9 @@
 *.launch
 
 #Debug
-Debug/
-debug/
-Release/
+Debug
+debug
+Release
 release
 
 # Prerequisites
