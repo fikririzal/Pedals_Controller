@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+[submodule "/"]
+	path = /
+	url = https://github.com/hathach/tinyusb.git
