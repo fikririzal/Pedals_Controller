@@ -37,7 +37,7 @@
 #define USB_PID           (0x4000 | _PID_MAP(CDC, 0) | _PID_MAP(MSC, 1) | _PID_MAP(HID, 2) | \
                            _PID_MAP(MIDI, 3) | _PID_MAP(VENDOR, 4) )
 
-#define USB_VID   0x010f
+#define USB_VID   0xcafe
 #define USB_BCD   0x0200
 
 extern char serial_str[25];
@@ -93,9 +93,9 @@ enum
 #define CONFIG_TOTAL_LEN    (TUD_CONFIG_DESC_LEN + TUD_CDC_DESC_LEN + TUD_HID_DESC_LEN)
 
 
-  #define EPNUM_CDC_0_NOTIF   0x81
-  #define EPNUM_CDC_0_OUT     0x02
-  #define EPNUM_CDC_0_IN      0x82
+#define EPNUM_CDC_0_NOTIF   0x81
+#define EPNUM_CDC_0_OUT     0x02
+#define EPNUM_CDC_0_IN      0x82
 #define EPNUM_HID_0_OUT   0x83
 
 //--------------------------------------------------------------------+
@@ -139,11 +139,6 @@ uint8_t const desc_hid_report1[] =
 	TUD_HID_REPORT_DESC_Gamepad16bit()
 };
 
-uint8_t const desc_hid_report2[] =
-{
-  TUD_HID_REPORT_DESC_MOUSE()
-};
-
 // Invoked when received GET HID REPORT DESCRIPTOR
 // Application return pointer to descriptor
 // Descriptor contents must exist long enough for transfer to complete
@@ -152,10 +147,6 @@ uint8_t const * tud_hid_descriptor_report_cb(uint8_t itf)
   if (itf == 0)
   {
     return desc_hid_report1;
-  }
-  else if (itf == 1)
-  {
-    return desc_hid_report2;
   }
 
   return NULL;
@@ -170,7 +161,7 @@ uint8_t const desc_fs_configuration[] =
   TUD_CDC_DESCRIPTOR(ITF_NUM_CDC_0, 4, EPNUM_CDC_0_NOTIF, 8, EPNUM_CDC_0_OUT, EPNUM_CDC_0_IN, 64),
 
   // Interface number, string index, protocol, report descriptor len, EP In address, size & polling interval
-  TUD_HID_DESCRIPTOR(ITF_NUM_HID_0, 5, HID_ITF_PROTOCOL_NONE, sizeof(desc_hid_report1), EPNUM_HID_0_OUT, CFG_TUD_HID_EP_BUFSIZE, 10),
+  TUD_HID_DESCRIPTOR(ITF_NUM_HID_0, 5, HID_ITF_PROTOCOL_NONE, sizeof(desc_hid_report1), EPNUM_HID_0_OUT, 9, 10),
 };
 
 // Invoked when received GET CONFIGURATION DESCRIPTOR
@@ -200,7 +191,7 @@ char const *string_desc_arr[] =
   (const char[]) { 0x09, 0x04 }, // 0: is supported language is English (0x0409)
   "TinyUSB",                     // 1: Manufacturer
   "TinyUSB Device",              // 2: Product
-  serial_str,                          // 3: Serials will use unique ID if possible
+  "Hello World",                          // 3: Serials will use unique ID if possible
   "TinyUSB CDC",                 // 4: CDC Interface
   "TinyUSB HID",                 // 5: HID Interface
 };

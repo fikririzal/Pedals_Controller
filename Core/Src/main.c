@@ -120,7 +120,6 @@ int main(void)
   /* Configure the system clock */
   SystemClock_Config();
 
-
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
@@ -140,6 +139,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	printf(serial_str);
+
 	while (1) {
 		tud_task();
 		cdc_task();
